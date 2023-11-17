@@ -1,8 +1,14 @@
 import './Header.scss';
 
-const Header = () => {
+const Header = (props) => {
     return (
-        <header className='header'></header>
+        <header className='header'>
+            <input 
+                type='text' 
+                placeholder='Cryptocurrency...'
+                onChange={(e) => props.getValue(e.target.value)}
+            />
+        </header>
     )
 }
 export default Header;

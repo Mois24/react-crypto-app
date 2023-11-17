@@ -4,7 +4,7 @@ import './Main.scss';
 
 const Main = (props) => {
     return (
-        <main className='main'>{props.listOfCryptocurrencies.map((crypto, index) => {
+        <main className='main'>{props.filteredCryptocurrencies.map((crypto, index) => {
             return ( 
                 <Cryptocurrency 
                     key={index}

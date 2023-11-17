@@ -12,7 +12,7 @@ const Cryptocurrency = ({name, websiteUrl, icon, price, symbol}) => {
     return (
         <div className='coin'>
             <h1><a href={websiteUrl}>{name}</a></h1>
-            <img src={icon}/>
+            <img className='images' src={icon}/>
             <h3>{shortPrice()}$</h3>
             <h3>{symbol}</h3>
         </div>
