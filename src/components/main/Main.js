@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import useCryptoService from '../../services/CryptoService';
-import Cryptocurrency from '../cryptocurrency/Cryptocurrency';
 
 import './Main.scss';
 
@@ -39,15 +38,22 @@ const Main = (props) => {
     }
 
     function renderItems(arr) {
+
+        const filteredCryptocurrencies = arr.filter((crypto) => {
+            return crypto.name.toLowerCase().includes(props.searchWord.toLowerCase());
+        })
     
-        const items =  arr.map((item) => {
+        const items =  filteredCryptocurrencies.map((item) => {
             const shortPrice = () => {
                 let result = String(item.price).split('');
                 for (let i = 0; i < result.length; i++) {
-                    if (result[i] === '.') {
+                    if (result[i] === '.' && result[i + 1] === '0' && result[i + 2] === '0' && result[i + 3] === '0' && result[i + 4] === '0') {
+                        return result.join('');
+                    } if (result[i] === '.') {
                         return result.slice(0, i + 5).join('');
                     }
                 }
+                return result.join('');
             }
             return (
                 <div 
@@ -74,14 +80,14 @@ const Main = (props) => {
     return (
         <main className='main'>
             <div>
-                {errorMessage}
                 {spinner}
                 {items}
+                {errorMessage}
                 <button
                     disabled={newItemLoading}
                     style={{'display': cryptoEnded ? 'none' : 'block'}}
                     onClick={() => onRequest(page)}>
-                    Add More Cryptocurrencies
+                    Load More Cryptocurrencies
                 </button>
             </div>
         </main>
